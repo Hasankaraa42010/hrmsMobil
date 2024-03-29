@@ -1,9 +1,9 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import LoginScreen from '../HrmsApp/Screen/LoginScreen'
-import HomePage from '../HrmsApp/Screen/HomePage'
-import SignUpScreen from '../HrmsApp/Screen/SignUpScreen'
+import LoginScreen from '../hrmsMobil/Screen/LoginScreen'
+import HomePage from '../hrmsMobil/Screen/HomePage'
+import SignUpScreen from '../hrmsMobil/Screen/SignUpScreen'
 
 
 

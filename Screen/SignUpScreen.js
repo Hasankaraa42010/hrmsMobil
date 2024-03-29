@@ -1,70 +1,102 @@
 import React, { useState } from 'react'
 import { View,Text,StyleSheet, TextInput, Button, Alert } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import EmployeeService from '../services/EmployeeService';
+import LoginScreen from './LoginScreen';
 
 
 export default function SignUpScreen({navigation}) {
-  const [userName, setUserName] = useState('');
+  const [isim, setIsım] = useState('');
   const [password, setPassword] = useState('');
-  const [email , setEmail] = useState('');
-  const [job, setJob] = useState('');
-  const [experience, setExperience] = useState('');
-  const handleLogin=()=>{
-    navigation.navigate('Giriş Ekranı');
-
-}
-  const handleClick=()=>{
-    if(userName=='' && password=='' && email=='' && job=='' && experience==''){
-      Alert.alert("Kaydolma başarısız","Tüm alanlar eksiksiz doldurulmalı...");
-    }
-    else{
-      navigation.navigate("Ana Sayfa");
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [role, setRole] = useState('');
+  const [username, setUsername] = useState('');
+  const [city, setCity] = useState('');
+  const [permission, setPermission] = useState('');
+  
+  const handleSignUp = () => {
+    if (city=='') {
+      Alert.alert("Kaydolma başarısız", "Tüm alanlar eksiksiz doldurulmalı...");
+    } else {
+      const employeeService = new EmployeeService();
+      employeeService.signIn({
+        isim,
+        password,
+        phoneNumber,
+        role,
+        username,
+        city,
+        permission
+      }).then(response => {
+        console.log('Kaydolma başarılı:', response);
+        navigation.navigate("Ana Sayfa");
+      }).catch(error => {
+        console.error('Kaydolma hatası:', error);
+        Alert.alert("Kaydolma hatası", error.message);
+      });
     }
   }
+  
   return (
     <View style={styles.container}>
-    <View style={styles.mid}>
-    <TextInput
-    style={styles.textInputs}
-    placeholder='Kullanıcı Adı'
-    value={userName}
-    onChangeText={setUserName}
-    />
-    <TextInput
-    style={styles.textInputs}
-    placeholder='Şifreniz'
-    value={password}
-    onChangeText={setPassword}
-    secureTextEntry
-    />
-    <TextInput
-    style={styles.textInputs}
-    placeholder='email'
-    value={email}
-    onChangeText={setEmail}
-    
-    />
-    <TextInput
-    style={styles.textInputs}
-    placeholder='job'
-    value={job}
-    onChangeText={setJob}
-    
-    />
-    <TextInput
-    style={styles.textInputs}
-    placeholder='experience'
-    value={experience}
-    onChangeText={setExperience}
-    
-    />
-    </View>
-    <Button title='Kaydol' onPress={handleClick}></Button>
-    <TouchableOpacity onPress={handleLogin}>
+      <View style={styles.mid}>
+        <TextInput
+          style={styles.textInputs}
+          placeholder='Ad'
+          value={isim}
+          onChangeText={setIsım}
+        />
+  
+        <TextInput
+          style={styles.textInputs}
+          placeholder='Şifre'
+          value={password}
+          onChangeText={setPassword}
+          secureTextEntry
+        />
+  
+        <TextInput
+          style={styles.textInputs}
+          placeholder='Telefon Numarası'
+          value={phoneNumber}
+          onChangeText={setPhoneNumber}
+        />
+  
+        <TextInput
+          style={styles.textInputs}
+          placeholder='Rol'
+          value={role}
+          onChangeText={setRole}
+        />
+  
+        <TextInput
+          style={styles.textInputs}
+          placeholder='Kullanıcı Adı'
+          value={username}
+          onChangeText={setUsername}
+        />
+  
+        <TextInput
+          style={styles.textInputs}
+          placeholder='Şehir'
+          value={city}
+          onChangeText={setCity}
+        />
+  
+        <TextInput
+          style={styles.textInputs}
+          placeholder='İzin'
+          value={permission}
+          onChangeText={setPermission}
+        />
+      </View>
+      <Button title='Kaydol' onPress={handleSignUp}></Button>
+      <TouchableOpacity onPress={() => navigation.navigate('Giriş Ekranı')}>
         <Text>Hesabınız varsa tıklayın</Text>
       </TouchableOpacity>
-</View>
+    </View>
   )
+  
 }
 const styles=StyleSheet.create({
   textInputs:{
