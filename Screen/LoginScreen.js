@@ -1,35 +1,32 @@
 import React, { useState } from 'react'
 import { View ,StyleSheet, Text, Button, Alert, TouchableOpacity} from 'react-native'
 import { TextInput } from 'react-native-gesture-handler'
+import EmployeeService from '../services/EmployeeService';
 
 export default function LoginScreen({navigation}) {
-    const [userName, setUserName] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const handleSignUp=()=>{
         navigation.navigate('Kaydolma');
 
     }
     const handleLogin=()=>{
-        if(userName=='Hasan'){
-            if (password=='Kara') {
-                navigation.navigate('Ana Sayfa')
-            }
-            else{
-                Alert.alert("Giriş başarısız","Şifre hatalı")
-            }
-        }
-        else {
-            Alert.alert("Giriş başarısız","Kullanıcı bulunamadı")
-        }
+       const employeeService=new EmployeeService();
+       employeeService.login({email,password}).then(result=>{
+        if(result.success==true)  navigation.navigate("Ana Sayfa")
+        else Alert.alert("Hatalı giriş",result.message);
+       }).catch(response=>{
+        console.log(response);
+       })
     }
   return (
     <View style={styles.container}>
         <View style={styles.mid}>
         <TextInput
         style={styles.textInputs}
-        placeholder='Kullanıcı Adı'
-        value={userName}
-        onChangeText={setUserName}
+        placeholder='email'
+        value={email}
+        onChangeText={setEmail}
         />
         <TextInput
         style={styles.textInputs}
