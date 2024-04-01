@@ -89,7 +89,7 @@ export default function SignUpScreen({ navigation }) {
         />
       </View>
       <Button title="Kaydol" onPress={handleSignUp}></Button>
-      <TouchableOpacity onPress={() => navigation.navigate("Giriş Ekranı")}>
+      <TouchableOpacity onPress={() => navigation.navigate("Giriş Sayfası")}>
         <Text>Hesabınız varsa tıklayın</Text>
       </TouchableOpacity>
     </View>
