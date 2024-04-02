@@ -5,6 +5,8 @@ import LoginScreen from '../hrmsMobil/Screen/LoginScreen'
 import HomePage from '../hrmsMobil/Screen/HomePage'
 import SignUpScreen from '../hrmsMobil/Screen/SignUpScreen'
 import Welcome from './Screen/Welcome';
+import LgScreen from './Screen/LgScreen';
+import SgScreen from './Screen/SgScreen';
 
 
 
@@ -16,12 +18,12 @@ const App = () => {
     <NavigationContainer>
     <Stack.Navigator initialRouteName="LoginScreen" screenOptions={{headerShown:false}}>
       <Stack.Screen name="Kaydolma " component={Welcome} />
-      <Stack.Screen name="Giriş Sayfası" component={LoginScreen} />
+      <Stack.Screen name="Giriş Sayfası" component={LgScreen} />
       <Stack.Screen name="Ana Sayfa" component={HomePage}/>
-      <Stack.Screen name='Kaydolma' component={SignUpScreen}/>
+      <Stack.Screen name='Kaydolma' component={SgScreen}/>
     </Stack.Navigator>
   </NavigationContainer>
-
+ 
 
 
   );
