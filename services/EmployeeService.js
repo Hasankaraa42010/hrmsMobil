@@ -1,11 +1,14 @@
 import axios from "axios";
-const urlapi="http://10.196.17.132:";
+
+const localHost="localhost:8092";
+const urlapi="http://"+localHost+":";
+
 export default class EmployeeService {
    
     async signIn(data) {
       return axios({
         method:'POST',
-        url:urlapi+"8092/api/employee/signIn",
+        url:"http://localhost:8092/api/employee/signIn",
         data:data
       }).then(function(response){
         return response.data
