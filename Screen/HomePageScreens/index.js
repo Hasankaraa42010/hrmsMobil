@@ -1,7 +1,8 @@
-import Home from "./Home"
+import JobAdvertisement from "./JobAdvertisement"
 import Profile from "./Profile"
-import Setting from "./Setting"
+import LastJobs from "./LastJobs"
+import MyApplications from "./MyApplications"
 
 export{
-    Home,Setting,Profile
+    Profile,JobAdvertisement,MyApplications,LastJobs
 }

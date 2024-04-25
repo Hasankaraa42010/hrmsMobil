@@ -23,7 +23,15 @@ const App = () => {
   //     <Stack.Screen name='Kaydolma' component={SgScreen}/>
   //   </Stack.Navigator>
   // </NavigationContainer>
-  <HomePage/>
+     <NavigationContainer independent={true}>
+    <Stack.Navigator initialRouteName="Ana Sayfa" screenOptions={{headerShown:false}}>
+      <Stack.Screen name="İlkGiriş " component={Welcome} />
+      <Stack.Screen name="Giriş Sayfası" component={LgScreen} />
+      <Stack.Screen name="Ana Sayfa" component={HomePage}/>
+      <Stack.Screen name='Kaydolma Ekranı' component={SgScreen}/>
+    </Stack.Navigator>
+  </NavigationContainer>
+
  
 
 

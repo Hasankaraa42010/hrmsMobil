@@ -1,30 +1,65 @@
-import { View, Text ,Platform} from 'react-native'
-import {Home,Setting,Profile} from "./HomePageScreens";
+import React from 'react';
+import { View, Text, Platform, StyleSheet } from 'react-native';
+import { Profile, JobAdvertisement, MyApplications, LastJobs } from "./HomePageScreens";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { NavigationContainer } from '@react-navigation/native';
 import { Entypo } from '@expo/vector-icons';
-const Tab=createBottomTabNavigator();
+
+const Tab = createBottomTabNavigator();
 
 export default function HomePage() {
   return (
-   <NavigationContainer>
-    <Tab.Navigator >
-      <Tab.Screen name="Home" component={Home} 
-      options={{
-        tabBarIcon:({focused})=>{
-          return (
-            <View style={{alignItems:"center",justifyContent:"center"}}>
-              <Entypo name='home' size={24} color={focused ?"#16247d":"#111"}
-              />
-              <Text style={{fontSize:12,color:"#16247d"}}>Home</Text>
-            </View>
-          )
-        }
-      }}
+    <Tab.Navigator>
+      <Tab.Screen name="Job Advertisement" component={JobAdvertisement}
+        options={{
+          tabBarIcon: ({ focused }) => {
+            return (
+              <View style={styles.screensView}>
+                <Entypo name='briefcase' size={24} color={focused ? "#16247d" : "#111"} />
+              </View>
+            )
+          }
+        }}
       />
-      <Tab.Screen name="Profile" component={Profile} />
-      <Tab.Screen name="Setting" component={Setting} />
+      <Tab.Screen name="My Applications" component={MyApplications}
+        options={{
+          tabBarIcon: ({ focused }) => {
+            return (
+              <View style={styles.screensView}>
+                <Entypo name='documents' size={24} color={focused ? "#16247d" : "#111"} />
+              </View>
+            )
+          }
+        }}
+      />
+      <Tab.Screen name="Last Jobs" component={LastJobs}
+        options={{
+          tabBarIcon: ({ focused }) => {
+            return (
+              <View style={styles.screensView}>
+                <Entypo name='archive' size={24} color={focused ? "#16247d" : "#111"} />
+              </View>
+            )
+          }
+        }}
+      />
+      <Tab.Screen name="My Profile" component={Profile}
+        options={{
+          tabBarIcon: ({ focused }) => {
+            return (
+              <View style={styles.screensView}>
+                <Entypo name='user' size={24} color={focused ? "#16247d" : "#111"} />
+              </View>
+            )
+          }
+        }}
+      />
     </Tab.Navigator>
-   </NavigationContainer>
   )
 }
+
+const styles = StyleSheet.create({
+  screensView: {
+    alignItems: "center",
+    justifyContent: "center",
+  }
+})
