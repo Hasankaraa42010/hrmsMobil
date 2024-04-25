@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet, TextInput, Button, Alert } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import EmployeeService from "../services/EmployeeService";
+import EmployeeService from "../../services/EmployeeService";
 
 export default function SignUpScreen({ navigation }) {
   const [data, setData] = useState({

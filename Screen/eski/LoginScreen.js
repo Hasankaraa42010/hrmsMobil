@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
-import EmployeeService from "../services/EmployeeService";
+import EmployeeService from "../../services/EmployeeService";
 
 export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState("");
