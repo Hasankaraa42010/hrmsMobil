@@ -20,7 +20,9 @@ export default function LgScreen({ navigation }) {
     employeeService
       .login({ email, password })
       .then((result) => {
-        if (result.success == true) navigation.navigate("Ana Sayfa");
+        
+        if (result.success == true) 
+        navigation.navigate("Ana Sayfa",{data:email});
         else Alert.alert("Hatalı giriş", result.message);
       })
       .catch((response) => {
@@ -101,7 +103,7 @@ export default function LgScreen({ navigation }) {
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => navigation.navigate("Kaydolma")}
+          onPress={() => navigation.navigate("Kaydolma Ekranı")}
           style={{
             padding: 10,
           }}

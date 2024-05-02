@@ -1,12 +1,23 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, Platform, StyleSheet } from 'react-native';
 import { Profile, JobAdvertisement, MyApplications, LastJobs } from "./HomePageScreens";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Entypo } from '@expo/vector-icons';
+import { useRoute } from '@react-navigation/native';
+import EmployeeService from '../services/EmployeeService';
 
 const Tab = createBottomTabNavigator();
 
 export default function HomePage() {
+  const [data, setData] = useState([])
+  const route = useRoute();
+  const email = route.params?.data;
+  const employeeService=new EmployeeService();
+  useEffect(() => {
+    employeeService.getEmployee(email).then((result)=>{
+    setData(result.data)
+    })
+  }, [email])
   return (
     <Tab.Navigator>
       <Tab.Screen name="Job Advertisement" component={JobAdvertisement}
@@ -42,7 +53,7 @@ export default function HomePage() {
           }
         }}
       />
-      <Tab.Screen name="My Profile" component={Profile}
+      <Tab.Screen name="My Profile" children={()=><Profile data={data}/>}
         options={{
           tabBarIcon: ({ focused }) => {
             return (

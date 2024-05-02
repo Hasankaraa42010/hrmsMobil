@@ -29,7 +29,11 @@ export default function SgScreen({ navigation }) {
     employeeService
       .signIn(data)
       .then((result) => {
-        if (result.success == true) navigation.navigate("Ana Sayfa");
+       
+        if (result.success == true) {
+        
+        navigation.navigate("Giriş Sayfası");
+       }
         else Alert.alert("Hatalı giriş", result.message);
       })
       .catch((error) => {

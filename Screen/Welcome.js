@@ -70,7 +70,7 @@ export default function Welcome({ navigation }) {
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
-          onPress={() =>  navigation.navigate('Kaydolma')}
+          onPress={() =>  navigation.navigate('Kaydolma Ekranı')}
             style={styles.register}
           >
             <Text

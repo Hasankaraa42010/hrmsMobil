@@ -24,7 +24,7 @@ const App = () => {
   //   </Stack.Navigator>
   // </NavigationContainer>
      <NavigationContainer independent={true}>
-    <Stack.Navigator initialRouteName="Ana Sayfa" screenOptions={{headerShown:false}}>
+    <Stack.Navigator initialRouteName="İlkGiriş" screenOptions={{headerShown:false}}>
       <Stack.Screen name="İlkGiriş " component={Welcome} />
       <Stack.Screen name="Giriş Sayfası" component={LgScreen} />
       <Stack.Screen name="Ana Sayfa" component={HomePage}/>
