@@ -7,7 +7,6 @@ import { useRoute } from '@react-navigation/native';
 import EmployeeService from '../services/EmployeeService';
 
 const Tab = createBottomTabNavigator();
-
 export default function HomePage() {
   const [data, setData] = useState([])
   const route = useRoute();

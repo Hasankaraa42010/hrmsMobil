@@ -6,15 +6,21 @@ import java.util.regex.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.javainuse.business.adapters.ApplicationService;
 import com.javainuse.business.adapters.EmployeeService;
+import com.javainuse.core.utilities.Results.DataResult;
+import com.javainuse.core.utilities.Results.ErrorDataResult;
 import com.javainuse.core.utilities.Results.ErrorResult;
 import com.javainuse.core.utilities.Results.Result;
+import com.javainuse.core.utilities.Results.SuccessDataResult;
 import com.javainuse.core.utilities.Results.SuccessResult;
 import com.javainuse.dto.adapters.AdminRepository;
 import com.javainuse.dto.adapters.EmployeeRepository;
+import com.javainuse.dto.adapters.JobAdvertisementRepository;
 import com.javainuse.entities.concretes.Admin;
+import com.javainuse.entities.concretes.Application;
 import com.javainuse.entities.concretes.Employee;
-
+import com.javainuse.entities.concretes.JobAdvertisement;
 
 import lombok.Data;
 
@@ -23,10 +29,15 @@ import lombok.Data;
 public class EmployeeManager implements EmployeeService{
 	@Autowired
 	private EmployeeRepository employeeRepository;
-
-	public EmployeeManager(EmployeeRepository employeeRepository) {
-
+	private ApplicationService applicationService;
+	private JobAdvertisementRepository advertisementRepository;
+	public EmployeeManager(EmployeeRepository employeeRepository,
+			ApplicationService applicationService,
+			JobAdvertisementRepository advertisementRepository
+			) {
+		this.applicationService=applicationService;
 		this.employeeRepository = employeeRepository;
+		this.advertisementRepository=advertisementRepository;
 	}
 
 	@Override
@@ -84,5 +95,24 @@ public class EmployeeManager implements EmployeeService{
 	        	return new SuccessResult("Giriş başarılı");
 	        	
 	        else return new ErrorResult("Hatalı Şifre");
+	}
+
+	@Override
+	public DataResult<Employee> findByEmail(String email) {
+		Employee employee=this.employeeRepository.findByEmail(email);
+		if(employee!=null) {
+			return new SuccessDataResult<Employee>(employee,"Kullanıcı getirildi");
+			
+		}
+		else return new ErrorDataResult<Employee>("Kullanıcı Bulunamadı");
+	}
+
+	@Override
+	public Result addApp(int employeeId,int jobadvertisementId) {
+    Employee employee=this.employeeRepository.getById(employeeId);
+	JobAdvertisement advertisement=this.advertisementRepository.findById(jobadvertisementId);
+	Application application=new Application(employee,advertisement,false);
+	this.applicationService.addApp(application);
+	return new SuccessResult("Başvuru onaylandı");
 	}
 }

@@ -1,7 +1,11 @@
 package com.javainuse.entities.concretes;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.javainuse.entities.adapters.User;
@@ -32,7 +36,8 @@ public class Admin extends User {
 	}
 
 
-
+	 @OneToMany(mappedBy = "admin")
+	   private List<JobAdvertisement> jobAdvertisements;
 	public String getPermision() {
 		return permision;
 	}
