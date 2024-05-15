@@ -43,4 +43,45 @@ export default class EmployeeService {
           console.log(error);
         })
       }
+      
+      async getJobs() {
+        return axios({
+          method:'GET',
+          
+          url:urlapi+"8092/api/employee/getAllJobAdvertisement",
+          
+        }).then(function(response){
+          return response.data
+        }).catch(function(error){
+          
+          console.log(error);
+        })
+      }
+     
+      async addAply(employeeId,advertId) {
+        return axios({
+          method:'POST',
+          url:urlapi+"8092/api/employee/addApplication?employeId="+employeeId+"&advertId="+advertId,
+          data:{employeeId,advertId}
+        }).then(function(response){
+          return response.data
+        }).catch(function(error){
+          
+          console.log(error);
+        })
+      }
+      
+      async getApplication(data) {
+        return axios({
+          method:'GET',
+          
+          url:urlapi+"8092/api/employee/getAllApplication?employeeId="+data,
+          data:data,
+        }).then(function(response){
+          return response.data
+        }).catch(function(error){
+          
+          console.log(error);
+        })
+      }
 }

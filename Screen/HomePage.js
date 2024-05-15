@@ -19,7 +19,7 @@ export default function HomePage() {
   }, [email])
   return (
     <Tab.Navigator>
-      <Tab.Screen name="Job Advertisement" component={JobAdvertisement}
+      <Tab.Screen name="Job Advertisement" children={()=><JobAdvertisement dataEmployee={data}/>}
         options={{
           tabBarIcon: ({ focused }) => {
             return (
@@ -30,7 +30,7 @@ export default function HomePage() {
           }
         }}
       />
-      <Tab.Screen name="My Applications" component={MyApplications}
+      <Tab.Screen name="My Applications"  children={()=><MyApplications dataEmployee={data}/>}
         options={{
           tabBarIcon: ({ focused }) => {
             return (

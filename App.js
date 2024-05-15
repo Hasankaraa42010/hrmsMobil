@@ -9,6 +9,7 @@ import LgScreen from './Screen/LgScreen';
 import SgScreen from './Screen/SgScreen';
 import AdminLoginScreen from './Screen/HomePageScreens/admin/AdminLoginScreen';
 import AdminHomePage from './Screen/HomePageScreens/admin/AdminHomePage';
+import Detay from './Screen/HomePageScreens/admin/homepagescreen/Detay';
 
 
 
@@ -33,6 +34,7 @@ const App = () => {
       <Stack.Screen name='Admin Ana Sayfa' component={AdminHomePage}/>
       <Stack.Screen name='Kaydolma Ekranı' component={SgScreen}/>
       <Stack.Screen name='Admin Giris' component={AdminLoginScreen}/>
+      <Stack.Screen name='Detay' component={Detay}/>
     </Stack.Navigator>
   </NavigationContainer>
 

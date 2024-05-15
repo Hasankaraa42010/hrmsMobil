@@ -15,12 +15,13 @@ export default function AdminHomePage() {
     useEffect(() => {
       adminService.getAdmin(email).then((result)=>{
       setData(result.data)
+      console.log(data);
       })
     }, [email])
 
   return (
     <Tab.Navigator>
-    <Tab.Screen name="Applications" component={Applications}
+    <Tab.Screen name="Applications"  children={()=><Applications dataAdmin={data}/>}
       options={{
         tabBarIcon: ({ focused }) => {
           return (
@@ -31,7 +32,7 @@ export default function AdminHomePage() {
         }
       }}
     />
-    <Tab.Screen name="Add Advertisement" component={AddJob}
+    <Tab.Screen name="Add Advertisement" children={()=><AddJob dataAdmin={data}/>}
       options={{
         tabBarIcon: ({ focused }) => {
           return (
