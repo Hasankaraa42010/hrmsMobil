@@ -10,6 +10,7 @@ import SgScreen from './Screen/SgScreen';
 import AdminLoginScreen from './Screen/HomePageScreens/admin/AdminLoginScreen';
 import AdminHomePage from './Screen/HomePageScreens/admin/AdminHomePage';
 import Detay from './Screen/HomePageScreens/admin/homepagescreen/Detay';
+import ApplicationDetails from './Screen/HomePageScreens/admin/homepagescreen/ApplicationDetails';
 
 
 
@@ -35,6 +36,7 @@ const App = () => {
       <Stack.Screen name='Kaydolma Ekranı' component={SgScreen}/>
       <Stack.Screen name='Admin Giris' component={AdminLoginScreen}/>
       <Stack.Screen name='Detay' component={Detay}/>
+      <Stack.Screen name='Detaybas' component={ApplicationDetails}/>
     </Stack.Navigator>
   </NavigationContainer>
 

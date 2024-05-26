@@ -1,102 +1,64 @@
-import { Button, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
 import AdminService from '../Service/AdminService';
-import Detay from './Detay';
+import { useNavigation } from '@react-navigation/native';
+const Applications = ({ dataAdmin}) => {
+  const navigation =useNavigation();
+  const [advertisements, setAdvertisements] = useState([]);
+  const adminId = dataAdmin.id;
+  const adminService = new AdminService();
 
-const Applications = ({dataAdmin}) => {
-  const [advertisements, setAdvertisements] = useState([])
-  const [applications, setApplications] = useState([])
-  const [isOpen, setisOpen] = useState(false)
-  const adminId=dataAdmin.id;
-  const adminService=new AdminService();
-  adminService.getAdminAdvertisement(adminId).then((res)=>{
-    setAdvertisements(res.data)
-  })
-  
-  const handlechain=()=>{
-    setisOpen(!isOpen)
-   }
-  const handle=(id)=>{
-   console.log(id);
-   adminService.getAppFromJobId(id).then((res)=>{
-   setApplications(res.data);
-   
-   handlechain();
-   
-   }).catch((err)=>{
-    console.log(err);
-   })
-  }
+  useEffect(() => {
+    adminService.getAdminAdvertisement(adminId).then((res) => {
+      setAdvertisements(res.data);
+    }).catch((err) => {
+      console.log(err);
+    });
+  }, [adminId]);
 
- 
+  const handle = (id) => {
+    navigation.navigate('Detaybas', { data: id });
+  };
+
   return (
-     <ScrollView>
-    <View style={styles.container}>
-     
-      <View>
-        {advertisements.map((advertisement, index) => (
-          <View key={index} style={styles.jobAdvertisement}>
-            <Text style={styles.advertisementTitle}>İş adı: {advertisement.name}</Text>
-            <Text style={styles.detail}>İlan adı: {advertisement.jobName}</Text>
-            <Text style={styles.detail}>İlan Şehri: {advertisement.city}</Text>
-            <Text style={styles.detail}>Maaş : {advertisement.salary} TL</Text>
-            <Text style={styles.detail}>İş Alanı: {advertisement.area}</Text>
-            {isOpen ? 
-            <View>
-            <Detay data={applications} />
-            <TouchableOpacity onPress={()=>handlechain()} style={styles.btnButon}>
-            <Text
-              style={{
-                color: "#ffff",
-                fontSize: 20,
-                textAlign: "center",
-              }}
-            >
-             Daralt
-            </Text>
-          </TouchableOpacity></View>
-            : <TouchableOpacity onPress={()=>handle(advertisement.id)} style={styles.btnButon}>
-            <Text
-              style={{
-                color: "#ffff",
-                fontSize: 20,
-                textAlign: "center",
-              }}
-            >
-             Başvuruları Gör
-            </Text>
-          </TouchableOpacity>}
-
-            
-          </View>
-        ))}
+    <ScrollView>
+      <View style={styles.container}>
+        <View>
+          {advertisements.map((advertisement, index) => (
+            <View key={index} style={styles.jobAdvertisement}>
+              <Text style={styles.advertisementTitle}>İş adı: {advertisement.name}</Text>
+              <Text style={styles.detail}>İlan adı: {advertisement.jobName}</Text>
+              <Text style={styles.detail}>İlan Şehri: {advertisement.city}</Text>
+              <Text style={styles.detail}>Maaş: {advertisement.salary} TL</Text>
+              <Text style={styles.detail}>İş Alanı: {advertisement.area}</Text>
+              <TouchableOpacity onPress={() => handle(advertisement.id)} style={styles.btnButon}>
+                <Text style={styles.btnText}>Başvuruları Gör</Text>
+              </TouchableOpacity>
+            </View>
+          ))}
+        </View>
       </View>
-      
-    </View></ScrollView>
-  )
-}
+    </ScrollView>
+  );
+};
 
-export default Applications
-
-
-
+export default Applications;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f0f0f0',
     width: '80%',
-    margin:25,
-    
+    margin: 25,
   },
-  jobAdvertisement:{
-    backgroundColor:"#fff",
+  jobAdvertisement: {
+    backgroundColor: '#fff',
     borderRadius: 10,
     marginVertical: 10,
     padding: 15,
-    shadowColor: "#000",
-   paddingLeft:25,
-   marginLeft:25,
+    shadowColor: '#000',
+    paddingLeft: 25,
+    marginLeft: 25,
     shadowOffset: {
       width: 0,
       height: 2,
@@ -116,7 +78,7 @@ const styles = StyleSheet.create({
     marginBottom: 3,
     color: '#555',
   },
-  btnButon:{
+  btnButon: {
     backgroundColor: '#007bff',
     borderRadius: 8,
     paddingVertical: 6,
@@ -125,5 +87,10 @@ const styles = StyleSheet.create({
     width: '80%',
     alignSelf: 'center',
     alignItems: 'center',
-  }
+  },
+  btnText: {
+    color: '#fff',
+    fontSize: 20,
+    textAlign: 'center',
+  },
 });
