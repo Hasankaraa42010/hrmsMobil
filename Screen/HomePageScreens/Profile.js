@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Dimensions, Image, Text, TouchableHighlight } from "react-native";
 import { View, StyleSheet } from "react-native";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
@@ -7,205 +7,155 @@ import { Entypo } from "@expo/vector-icons";
 const { height } = Dimensions.get("window");
 const Tab = createMaterialTopTabNavigator();
 
-const AboutScreen = ({data}) => {
-
+const AboutScreen = ({ data }) => {
   return (
-  <View>
-   <View style={styleAbout.container}>
-
-                <View style={{flexDirection:"row",backgroundColor:"#fffc"}}>
-                <Entypo name='user' size={24} color={"aqua"} style={{margin:10}} />
-                <Text style={{marginTop:12,color:"red",fontSize:20}}>Basic İnformation</Text>
-                </View>
-                <View style={styleAbout.textInfo}>
-                  <Text style={{color:"#C0C0C0",fontSize:12}}>Full Name</Text>
-                  <Text style={{color:"black",fontSize:19}}>{data.name}</Text>
-                </View>
-                <View style={styleAbout.textInfo}>
-                  <Text style={{color:"#C0C0C0",fontSize:12}}>Email</Text>
-                  <Text style={{color:"black",fontSize:19}}>{data.email}</Text>
-                </View>
-                <View style={styleAbout.textInfo}>
-                  <Text style={{color:"#C0C0C0",fontSize:12}}>Job</Text>
-                  <Text style={{color:"black",fontSize:19}}>{data.job}</Text>
-                </View>
-                <View style={styleAbout.textInfo}>
-                  <Text style={{color:"#C0C0C0",fontSize:12}}>Area</Text>
-                  <Text style={{color:"black",fontSize:19}}>{data.area}</Text>
-                </View>
-                <View style={styleAbout.textInfo}>
-                  <Text style={{color:"#C0C0C0",fontSize:12}}>Phone Number</Text>
-                  <Text style={{color:"black",fontSize:19}}>{data.phoneNumber}</Text>
-                </View>
-                <View style={styleAbout.textInfo}>
-                  <Text style={{color:"#C0C0C0",fontSize:12}}>Experience</Text>
-                  <Text style={{color:"black",fontSize:19}}>{data.experience}</Text>
-                </View>
-                
-              </View>
-  </View>
+    <View style={styles.aboutContainer}>
+      <View style={styles.header}>
+        <Entypo name='user' size={24} color={"#007AFF"} style={styles.icon} />
+        <Text style={styles.headerText}>Basic Information</Text>
+      </View>
+      {Object.entries(data).map(([key, value]) => (
+        <View style={styles.infoRow} key={key}>
+          <Text style={styles.label}>{key.replace(/([A-Z])/g, ' $1')}</Text>
+          <Text style={styles.value}>{value}</Text>
+        </View>
+      ))}
+    </View>
   );
 };
-const styleAbout= StyleSheet.create({
-  textInfo:{
-    backgroundColor:"#fff",
-    height:50,
-   padding:10,
-   paddingLeft:20,
-   flexDirection:"column"
-  },
-  inputtext:{
-    backgroundColor:"red",
-    height:50,
-    
-  },
-  container: {
-    
-    
-    borderRadius: 20,
-    margin:10,
-    height:344
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginBottom: 10,
-  },
-  infoContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  avatar: {
-    width: 80,
-    height: 80,
-    borderRadius: 40,
-    marginRight: 20,
-  },
-  textContainer: {
-    flex: 1,
-  },
-  text: {
-    fontSize: 16,
-    marginBottom: 5,
-   
-  },
-});
-
 
 const TeamScreen = () => {
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+    <View style={styles.teamContainer}>
       <Text>Team Screen</Text>
     </View>
   );
 };
-export default function Profile({ navigation,data }) {
-  console.log(1);
-  console.log(data);
-  console.log(2);
+
+export default function Profile({ navigation, data }) {
   return (
-    <View>
+    <View style={styles.profileContainer}>
       <View style={styles.topbar}>
-        <TouchableHighlight style={styles.otherContainer}>
-          <Image
-            source={require("../../assets/message.png")}
-            style={styles.otherImg}
-          />
+        <TouchableHighlight style={styles.iconContainer}>
+          <Image source={require("../../assets/message.png")} style={styles.iconImage} />
         </TouchableHighlight>
-        <TouchableHighlight style={styles.profileImgContainer}>
-          <Image
-            source={require("../../assets/logi.png")}
-            style={styles.profileImg}
-          />
+        <TouchableHighlight style={styles.profileImageContainer}>
+          <Image source={require("../../assets/logi.png")} style={styles.profileImage} />
         </TouchableHighlight>
-        <TouchableHighlight style={styles.otherContainer}>
-          <Image
-            source={require("../../assets/bildirim.jpg")}
-            style={styles.otherImg}
-            
-          />
+        <TouchableHighlight style={styles.iconContainer}>
+          <Image source={require("../../assets/bildirim.jpg")} style={styles.iconImage} />
         </TouchableHighlight>
       </View>
-      <View
-        style={{
-          justifyContent: "center",
-          alignItems: "center",
-          alignContent: "center",
-          marginTop: -75,
-        }}
-      >
-        <Text>{data.name}</Text>
-        <Text>{data.job}</Text>
-      </View > 
-        <View style={{backgroundColor:"black", height:height/1}}>
-              <Tab.Navigator>
-        <Tab.Screen name="Personel" children={()=><AboutScreen data={data}/>} />
-        <Tab.Screen name="Company" component={TeamScreen} />
-      </Tab.Navigator>
-        </View>
-      
-        
-      
+      <View style={styles.profileInfo}>
+        <Text style={styles.name}>{data.name}</Text>
+        <Text style={styles.job}>{data.job}</Text>
+      </View>
+      <View style={styles.tabsContainer}>
+        <Tab.Navigator>
+          <Tab.Screen name="Personel" children={() => <AboutScreen data={data} />} />
+          <Tab.Screen name="Company" component={TeamScreen} />
+        </Tab.Navigator>
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  profileContainer: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  screensView: {
-    alignItems: "center",
-    justifyContent: "center",
+    backgroundColor: "#f8f9fa",
   },
   topbar: {
     flexDirection: "row",
     alignItems: "center",
-    height: height / 3,
-    backgroundColor: "red",
+    height: height / 3.5,
+    backgroundColor: "#007AFF",
     justifyContent: "center",
+    paddingTop: 30,
   },
-  profileImgContainer: {
-    borderColor: "black",
-    borderWidth: 1,
-    marginLeft: 8,
-    marginRight: 15,
+  profileImageContainer: {
+    borderColor: "#fff",
+    borderWidth: 2,
     height: 120,
     width: 120,
     borderRadius: 60,
     overflow: "hidden",
   },
-
-  otherContainer: {
-    borderColor: "black",
+  profileImage: {
+    height: "100%",
+    width: "100%",
+  },
+  iconContainer: {
+    borderColor: "#fff",
     borderWidth: 1,
-    marginLeft: 8,
-    marginRight: 15,
     height: 60,
     width: 60,
-    borderRadius: 40,
+    borderRadius: 30,
     overflow: "hidden",
+    justifyContent: "center",
+    alignItems: "center",
+    marginHorizontal: 10,
   },
-  profileImg: {
-    height: 120,
-    width: 120,
-    borderRadius: 60,
+  iconImage: {
+    height: 30,
+    width: 30,
+    resizeMode: "contain",
   },
-  otherImg: {
-    backgroundColor:"white",  
-    height: 60,
-    width: 60,
-    borderRadius: 40,
+  profileInfo: {
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: -60,
   },
-
-  title: {
+  name: {
+    fontSize: 24,
+    fontWeight: "600",
+    color: "#333",
+  },
+  job: {
+    fontSize: 18,
+    color: "#555",
+  },
+  tabsContainer: {
+    flex: 1,
+    backgroundColor: "#fff",
+    marginTop: 10,
+  },
+  aboutContainer: {
+    padding: 20,
+  },
+  header: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 20,
+  },
+  icon: {
+    marginRight: 10,
+  },
+  headerText: {
     fontSize: 20,
     fontWeight: "bold",
-    marginBottom: 10,
+    color: "#007AFF",
   },
-  userInfo: {
-    marginBottom: 20,
+  infoRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginVertical: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: "#eee",
+    paddingBottom: 5,
+  },
+  label: {
+    color: "#888",
+    fontSize: 14,
+  },
+  value: {
+    color: "#333",
+    fontSize: 16,
+    fontWeight: "500",
+  },
+  teamContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });

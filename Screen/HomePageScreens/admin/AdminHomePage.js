@@ -43,7 +43,7 @@ export default function AdminHomePage() {
         }
       }}
     />
-    <Tab.Screen name="My Worker" component={MyWorkers}
+    <Tab.Screen name="My Worker" children={()=><MyWorkers dataAdmin={data}/>} 
       options={{
         tabBarIcon: ({ focused }) => {
           return (

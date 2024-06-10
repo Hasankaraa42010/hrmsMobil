@@ -41,7 +41,7 @@ export default function HomePage() {
           }
         }}
       />
-      <Tab.Screen name="Last Jobs" component={LastJobs}
+      <Tab.Screen name="Last Jobs" children={()=><LastJobs data={data}/>}
         options={{
           tabBarIcon: ({ focused }) => {
             return (

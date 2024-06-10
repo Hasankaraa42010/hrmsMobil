@@ -1,23 +1,37 @@
-import { View, Text, SafeAreaView, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, SafeAreaView, StyleSheet, ScrollView, TouchableOpacity, Alert } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import AdminService from '../Service/AdminService';
+import { useNavigation } from '@react-navigation/native';
 
 export default function ApplicationDetails({ route }) {
   const { data } = route.params;
   const adminService = new AdminService();
   const [employees, setEmployees] = useState([]);
+  const  navigation=useNavigation()
 
   useEffect(() => {
     adminService.getAppFromJobId(data).then((res) => {
       console.log(res.data);
       setEmployees(res.data);
+      
+      
     }).catch((err) => {
       console.log(err);
     });
   }, [data]);
 
-  const handleAccept = (id) => {
-    console.log(`Accepted: ${id}`);
+  const handleAccept = (employeeId,adminId,adminemail) => {
+    console.log("employee ıd:"+employeeId)
+    console.log("admin id:"+adminId);
+  
+    let advertId=data;
+    console.log("ilanId:"+advertId);
+    adminService.addJobsEmployee(adminId,employeeId,advertId).then((res)=>{
+      Alert.alert("Tamamlandı","Başarıyla tamamlandı")
+      navigation.navigate("Admin Ana Sayfa",{data:adminemail})
+    }).catch((res)=>{
+     
+    })
   };
 
   const handleReject = (id) => {
@@ -41,8 +55,9 @@ export default function ApplicationDetails({ route }) {
                 <Text style={styles.employeeText}><Text style={styles.label}>Meslek:</Text> {employee.employee.job}</Text>
                 <Text style={styles.employeeText}><Text style={styles.label}>Ad:</Text> {employee.employee.name}</Text>
                 <Text style={styles.employeeText}><Text style={styles.label}>Telefon:</Text> {employee.employee.phoneNumber}</Text>
+               
                 <View style={styles.buttonContainer}>
-                  <TouchableOpacity style={styles.acceptButton} onPress={() => handleAccept(employee.employee.id)}>
+                  <TouchableOpacity style={styles.acceptButton} onPress={() => handleAccept(employee.employee.id,employee.jobAdvertisement.admin.id,employee.jobAdvertisement.admin.email)}>
                     <Text style={styles.buttonText}>Kabul</Text>
                   </TouchableOpacity>
                   <TouchableOpacity style={styles.rejectButton} onPress={() => handleReject(employee.employee.id)}>

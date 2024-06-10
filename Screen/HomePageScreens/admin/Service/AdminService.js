@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const localHost = "10.196.17.132";
+const localHost = "192.168.1.50";
 const urlapi = "http://" + localHost + ":";
 export default class AdminService {
   async login(data) {
@@ -93,4 +93,45 @@ export default class AdminService {
         console.log(error);
       });
   }
+  async addJobsEmployee(adminId,employeeId,jobAdvertisementId) {
+    return axios({
+      method: "POST",
+      url:
+        urlapi +
+        
+        "8092/api/admin/addJobs?adminId=" +
+        adminId +
+        "&employeeId=" +
+        employeeId +
+        "&jobadvertisementId=" +
+        jobAdvertisementId ,
+       
+     
+    })
+      .then(function (response) {
+        return response.data;
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+  async getWorkers(adminId) {
+    return axios({
+      method: "GET",
+      url:
+      
+        urlapi +
+        "8092/api/admin/findByAdminIdWithWorkers?adminId=" +
+        adminId,
+      data: adminId,
+    })
+      .then(function (response) {
+        return response.data;
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+
+  
 }

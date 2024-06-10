@@ -33,7 +33,7 @@ export default function Welcome({ navigation }) {
               textAlign: "center",
             }}
           >
-           Hayal Ettiğin işe sokalım
+           Hayal Ettiğin işe bir adım
           </Text>
           <Text
             style={{
